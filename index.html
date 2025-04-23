@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Farewell Celebration - Hard Challenge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('/api/placeholder/1200/800');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.9), rgba(37, 117, 252, 0.9));
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 90%;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            max-width: 600px;
+            margin: 2rem auto;
+            transition: all 0.5s ease;
+        }
+        
+        .invitation-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            max-width: 900px;
+            margin: 2rem auto;
+            display: none;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: #333;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #6a11cb, #2575fc, transparent);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #6a11cb;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0;
+            color: #2575fc;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .quote {
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: #666;
+            padding: 1rem 2rem;
+            position: relative;
+        }
+        
+        .quote::before, .quote::after {
+            content: '"';
+            font-size: 2.5rem;
+            color: #6a11cb;
+            opacity: 0.3;
+            position: absolute;
+        }
+        
+        .quote::before {
+            top: 0;
+            left: 0;
+        }
+        
+        .quote::after {
+            bottom: -10px;
+            right: 0;
+        }
+        
+        .senior-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .senior-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .senior-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .senior-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .senior-card:hover .senior-photo {
+            transform: scale(1.05);
+        }
+        
+        .senior-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .senior-quote {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+        
+        .event-details {
+            background: linear-gradient(135deg, #f6f9fc, #f1f4f9);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+        }
+        
+        .event-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .event-label {
+            font-weight: 600;
+            color: #6a11cb;
+        }
+        
+        .event-value {
+            color: #333;
+        }
+        
+        .footer-note {
+            margin-top: 2rem;
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* Game Styles */
+        .game-area {
+            width: 100%;
+            height: 300px;
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            margin: 2rem 0;
+            border: 2px solid #ddd;
+        }
+        
+        .character {
+            width: 50px;
+            height: 50px;
+            background-color: #6a11cb;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .target {
+            width: 30px;
+            height: 30px;
+            background-color: #ff6b6b;
+            border-radius: 50%;
+            position: absolute;
+            transition: all 0.2s linear;
+        }
+        
+        .obstacle {
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            position: absolute;
+            border-radius: 5px;
+            z-index: 5;
+        }
+        
+        .score-container {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .lives-container {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ff6b6b;
+        }
+        
+        .timer-container {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2575fc;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin-top: 1rem;
+            box-shadow: 0 4px 8px rgba(37, 117, 252, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(37, 117, 252, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .instructions {
+            background-color: rgba(106, 17, 203, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .difficulty {
+            color: #ff6b6b;
+            font-weight: 600;
+            border: 2px solid #ff6b6b;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .floral-decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-image: url('/api/placeholder/150/150');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.1;
+        }
+        
+        .decoration-1 {
+            top: 20px;
+            left: 20px;
+            transform: rotate(-30deg);
+        }
+        
+        .decoration-2 {
+            bottom: 20px;
+            right: 20px;
+            transform: rotate(30deg);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .game-container, .invitation-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            .senior-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .senior-photo {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        
+        /* Animation classes */
+        .animate-in {
+            animation: fadeInUp 0.8s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Decorative elements */
+        .ornament {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        
+        .ornament-1 {
+            top: 20px;
+            left: 20px;
+            transform: rotate(-15deg);
+        }
+        
+        .ornament-2 {
+            bottom: 20px;
+            right: 20px;
+            transform: rotate(15deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Game Container -->
+        <div class="game-container" id="gameContainer">
+            <h1>Welcome to the Farewell Challenge</h1>
+            <div class="difficulty">HARD MODE</div>
+            <p>To view the special invitation, collect 15 points in this challenging mini-game</p>
+            
+            <div class="instructions">
+                <p><strong>Instructions:</strong> Click on the purple circle and use arrow keys to move. Collect the red dots to earn points but avoid the black obstacles or you'll lose points! Targets move and disappear quickly. Reach 15 points to unlock the invitation!</p>
+            </div>
+            
+            <div class="game-area" id="gameArea">
+                <div class="character" id="character"></div>
+            </div>
+            
+            <div class="score-container">
+                Score: <span id="score">0</span> / 15
+            </div>
+            
+            <div class="lives-container">
+                Lives: <span id="lives">3</span>
+            </div>
+            
+            <div class="timer-container">
+                Time: <span id="timer">60</span>s
+            </div>
+            
+            <div>
+                <button class="btn" id="startGameBtn">Start Game</button>
+            </div>
+        </div>
+        
+        <!-- Invitation Container -->
+        <div class="invitation-container" id="invitationContainer">
+            <div class="floral-decoration decoration-1"></div>
+            <div class="floral-decoration decoration-2"></div>
+            
+            <h1>A Farewell to Our Beloved Seniors</h1>
+            
+            <div class="quote">
+                "How lucky I am to have something that makes saying goodbye so hard." - A.A. Milne
+            </div>
+            
+            <div class="senior-grid">
+                <div class="senior-card animate-in" style="animation-delay: 0.1s">
+                    <img src="/api/placeholder/150/150?text=A" alt="Senior A" id="senior-a-photo" class="senior-photo">
+                    <h3 class="senior-name">Senior A</h3>
+                    <p class="senior-quote">"The future belongs to those who believe in the beauty of their dreams."</p>
+                </div>
+                
+                <div class="senior-card animate-in" style="animation-delay: 0.2s">
+                    <img src="/api/placeholder/150/150?text=B" alt="Senior B" id="senior-b-photo" class="senior-photo">
+                    <h3 class="senior-name">Senior B</h3>
+                    <p class="senior-quote">"Your attitude, not your aptitude, will determine your altitude."</p>
+                </div>
+                
+                <div class="senior-card animate-in" style="animation-delay: 0.3s">
+                    <img src="/api/placeholder/150/150?text=C" alt="Senior C" id="senior-c-photo" class="senior-photo">
+                    <h3 class="senior-name">Senior C</h3>
+                    <p class="senior-quote">"The only way to do great work is to love what you do."</p>
+                </div>
+                
+                <div class="senior-card animate-in" style="animation-delay: 0.4s">
+                    <img src="/api/placeholder/150/150?text=D" alt="Senior D" id="senior-d-photo" class="senior-photo">
+                    <h3 class="senior-name">Senior D</h3>
+                    <p class="senior-quote">"The journey is the reward."</p>
+                </div>
+            </div>
+            
+            <div class="event-details animate-in" style="animation-delay: 0.5s">
+                <h2>Event Details</h2>
+                
+                <div class="event-row">
+                    <span class="event-label">Date:</span>
+                    <span class="event-value">Saturday, May 15, 2025</span>
+                </div>
+                
+                <div class="event-row">
+                    <span class="event-label">Time:</span>
+                    <span class="event-value">6:00 PM - 10:00 PM</span>
+                </div>
+                
+                <div class="event-row">
+                    <span class="event-label">Venue:</span>
+                    <span class="event-value">Grand Ballroom, The Riverside Hotel</span>
+                </div>
+                
+                <div class="event-row">
+                    <span class="event-label">Dress Code:</span>
+                    <span class="event-value">Semi-Formal</span>
+                </div>
+            </div>
+            
+            <div class="footer-note animate-in" style="animation-delay: 0.6s">
+                <p>Please join us to celebrate the achievements and memories of our seniors as they embark on their new journey. There will be dinner, music, dancing, and a special presentation to honor our graduating class.</p>
+                <p>We look forward to your presence on this special occasion.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Game logic
+        const gameArea = document.getElementById('gameArea');
+        const character = document.getElementById('character');
+        const scoreElement = document.getElementById('score');
+        const livesElement = document.getElementById('lives');
+        const timerElement = document.getElementById('timer');
+        const startGameBtn = document.getElementById('startGameBtn');
+        const gameContainer = document.getElementById('gameContainer');
+        const invitationContainer = document.getElementById('invitationContainer');
+        
+        let score = 0;
+        let lives = 3;
+        let timeRemaining = 60;
+        let targets = [];
+        let obstacles = [];
+        let gameActive = false;
+        let characterPos = { x: 10, y: 10 };
+        let moveSpeed = 3; // Reduced speed to make game harder
+        let keys = {};
+        let gameInterval;
+        let targetInterval;
+        let obstacleInterval;
+        let timerInterval;
+        
+        // Set character initial position
+        character.style.left = characterPos.x + 'px';
+        character.style.top = characterPos.y + 'px';
+        
+        // Create target function with movement
+        function createTarget() {
+            if (!gameActive) return;
+            
+            const target = document.createElement('div');
+            target.classList.add('target');
+            
+            const posX = Math.random() * (gameArea.offsetWidth - 30);
+            const posY = Math.random() * (gameArea.offsetHeight - 30);
+            
+            target.style.left = posX + 'px';
+            target.style.top = posY + 'px';
+            
+            // Add random direction and speed for movement
+            target.dataset.speedX = (Math.random() * 4 - 2); // -2 to 2
+            target.dataset.speedY = (Math.random() * 4 - 2); // -2 to 2
+            
+            gameArea.appendChild(target);
+            targets.push(target);
+            
+            // Remove target after shorter time if not collected
+            setTimeout(() => {
+                if (targets.includes(target)) {
+                    target.remove();
+                    targets = targets.filter(t => t !== target);
+                }
+            }, 1500); // Reduced from 3000ms to 1500ms
+        }
+        
+        // Create obstacle function
+        function createObstacle() {
+            if (!gameActive) return;
+            
+            const obstacle = document.createElement('div');
+            obstacle.classList.add('obstacle');
+            
+            // Make sure obstacle doesn't spawn on character
+            let posX, posY;
+            do {
+                posX = Math.random() * (gameArea.offsetWidth - 40);
+                posY = Math.random() * (gameArea.offsetHeight - 40);
+            } while (
+                posX > characterPos.x - 70 && 
+                posX < characterPos.x + 70 && 
+                posY > characterPos.y - 70 && 
+                posY < characterPos.y + 70
+            );
+            
+            obstacle.style.left = posX + 'px';
+            obstacle.style.top = posY + 'px';
+            
+            // Add random direction and speed for movement
+            obstacle.dataset.speedX = (Math.random() * 2 - 1); // -1 to 1
+            obstacle.dataset.speedY = (Math.random() * 2 - 1); // -1 to 1
+            
+            gameArea.appendChild(obstacle);
+            obstacles.push(obstacle);
+            
+            // Remove obstacle after some time
+            setTimeout(() => {
+                if (obstacles.includes(obstacle)) {
+                    obstacle.remove();
+                    obstacles = obstacles.filter(o => o !== obstacle);
+                }
+            }, 5000);
+        }
+        
+        // Move game objects function
+        function moveGameObjects() {
+            if (!gameActive) return;
+            
+            // Move targets
+            targets.forEach(target => {
+                const speedX = parseFloat(target.dataset.speedX);
+                const speedY = parseFloat(target.dataset.speedY);
+                
+                let left = parseFloat(target.style.left);
+                let top = parseFloat(target.style.top);
+                
+                // Bounce off walls
+                if (left <= 0 || left >= gameArea.offsetWidth - 30) {
+                    target.dataset.speedX = -speedX;
+                }
+                
+                if (top <= 0 || top >= gameArea.offsetHeight - 30) {
+                    target.dataset.speedY = -speedY;
+                }
+                
+                // Update position
+                left += parseFloat(target.dataset.speedX);
+                top += parseFloat(target.dataset.speedY);
+                
+                target.style.left = left + 'px';
+                target.style.top = top + 'px';
+            });
+            
+            // Move obstacles
+            obstacles.forEach(obstacle => {
+                const speedX = parseFloat(obstacle.dataset.speedX);
+                const speedY = parseFloat(obstacle.dataset.speedY);
+                
+                let left = parseFloat(obstacle.style.left);
+                let top = parseFloat(obstacle.style.top);
+                
+                // Bounce off walls
+                if (left <= 0 || left >= gameArea.offsetWidth - 40) {
+                    obstacle.dataset.speedX = -speedX;
+                }
+                
+                if (top <= 0 || top >= gameArea.offsetHeight - 40) {
+                    obstacle.dataset.speedY = -speedY;
+                }
+                
+                // Update position
+                left += parseFloat(obstacle.dataset.speedX);
+                top += parseFloat(obstacle.dataset.speedY);
+                
+                obstacle.style.left = left + 'px';
+                obstacle.style.top = top + 'px';
+            });
+        }
+        
+        // Move character function
+        function moveCharacter() {
+            if (!gameActive) return;
+            
+            if (keys['ArrowUp'] || keys['w']) {
+                characterPos.y = Math.max(characterPos.y - moveSpeed, 0);
+            }
+            if (keys['ArrowDown'] || keys['s']) {
+                characterPos.y = Math.min(characterPos.y + moveSpeed, gameArea.offsetHeight - 50);
+            }
+            if (keys['ArrowLeft'] || keys['a']) {
+                characterPos.x = Math.max(characterPos.x - moveSpeed, 0);
+            }
+            if (keys['ArrowRight'] || keys['d']) {
+                characterPos.x = Math.min(characterPos.x + moveSpeed, gameArea.offsetWidth - 50);
+            }
+            
+            character.style.left = characterPos.x + 'px';
+            character.style.top = characterPos.y + 'px';
+            
+            // Check for collisions with targets
+            targets.forEach(target => {
+                const targetRect = target.getBoundingClientRect();
+                const characterRect = character.getBoundingClientRect();
+                
+                if (
+                    characterRect.left < targetRect.right &&
+                    characterRect.right > targetRect.left &&
+                    characterRect.top < targetRect.bottom &&
+                    characterRect.bottom > targetRect.top
+                ) {
+                    // Collision detected
+                    target.remove();
+                    targets = targets.filter(t => t !== target);
+                    
+                    // Increment score
+                    score++;
+                    scoreElement.textContent = score;
+                    
+                    // Check if game is won
+                    if (score >= 15) {
+                        gameWon();
+                    }
+                }
+            });
+            
+            // Check for collisions with obstacles
+            obstacles.forEach(obstacle => {
+                const obstacleRect = obstacle.getBoundingClientRect();
+                const characterRect = character.getBoundingClientRect();
+                
+                if (
+                    characterRect.left < obstacleRect.right &&
+                    characterRect.right > obstacleRect.left &&
+                    characterRect.top < obstacleRect.bottom &&
+                    characterRect.bottom > obstacleRect.top
+                ) {
+                    // Collision detected
+                    obstacle.remove();
+                    obstacles = obstacles.filter(o => o !== obstacle);
+                    
+                    // Decrement score and lives
+                    score = Math.max(0, score - 2); // Lose 2 points
+                    scoreElement.textContent = score;
+                    
+                    lives--;
+                    livesElement.textContent = lives;
+                    
+                    // Flash character to indicate hit
+                    character.style.backgroundColor = '#ff6b6b';
+                    setTimeout(() => {
+                        character.style.backgroundColor = '#6a11cb';
+                    }, 300);
+                    
+                    // Check if game is lost
+                    if (lives <= 0) {
+                        gameLost();
+                    }
+                }
+            });
+        }
+        
+        // Update timer function
+        function updateTimer() {
+            if (!gameActive) return;
+            
+            timeRemaining--;
+            timerElement.textContent = timeRemaining;
+            
+            if (timeRemaining <= 0) {
+                gameLost();
+            }
+        }
+        
+        // Start game function
+        function startGame() {
+            gameActive = true;
+            score = 0;
+            lives = 3;
+            timeRemaining = 60;
+            
+            scoreElement.textContent = '0';
+            livesElement.textContent = '3';
+            timerElement.textContent = '60';
+            
+            // Clear existing targets and obstacles
+            targets.forEach(target => target.remove());
+            targets = [];
+            
+            obstacles.forEach(obstacle => obstacle.remove());
+            obstacles = [];
+            
+            // Reset character position
+            characterPos = { x: 10, y: 10 };
+            character.style.left = characterPos.x + 'px';
+            character.style.top = characterPos.y + 'px';
+            
+            // Start creating targets and obstacles
+            createTarget();
+            createObstacle();
+            
+            clearInterval(targetInterval);
+            clearInterval(obstacleInterval);
+            clearInterval(gameInterval);
+            clearInterval(timerInterval);
+            
+            targetInterval = setInterval(createTarget, 1200);
+            obstacleInterval = setInterval(createObstacle, 2000);
+            gameInterval = setInterval(() => {
+                moveCharacter();
+                moveGameObjects();
+            }, 30);
+            timerInterval = setInterval(updateTimer, 1000);
+            
+            // Change button text
+            startGameBtn.textContent = 'Restart Game';
+        }
+        
+        // Game won function
+        function gameWon() {
+            gameActive = false;
+            clearAllIntervals();
+            
+            // Show congratulations alert
+            setTimeout(() => {
+                alert('Congratulations! You\'ve conquered the challenge and unlocked the invitation!');
+                
+                // Show invitation
+                gameContainer.style.display = 'none';
+                invitationContainer.style.display = 'block';
+                
+                // Check for senior ID in URL
+                loadSeniorPhoto();
+            }, 100);
+        }
+        
+        // Game lost function
+        function gameLost() {
+            gameActive = false;
+            clearAllIntervals();
+            
+            // Show game over alert
+            setTimeout(() => {
+                alert('Game Over! Try again to unlock the invitation.');
+                
+                // Reset for a new game
+                lives = 3;
+                livesElement.textContent = '3';
+                timeRemaining = 60;
+                timerElement.textContent = '60';
+                score = 0;
+                scoreElement.textContent = '0';
+            }, 100);
+        }
+        
+        // Clear all intervals function
+        function clearAllIntervals() {
+            clearInterval(gameInterval);
+            clearInterval(targetInterval);
+            clearInterval(obstacleInterval);
+            clearInterval(timerInterval);
+        }
+        
+        // Event listeners
+        startGameBtn.addEventListener('click', startGame);
+        
+        window.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+            
+            // Prevent page scrolling with arrow keys
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
+                e.preventDefault();
+            }
+        });
+        
+        window.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+        
+        // Character click handling for mobile
+        character.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            character.dataset.touched = 'true';
+        });
+        
+        gameArea.addEventListener('touchmove', (e) => {
+            if (character.dataset.touched === 'true' && gameActive) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const gameAreaRect = gameArea.getBoundingClientRect();
+                
+                const newX = touch.clientX - gameAreaRect.left - 25;
+                const newY = touch.clientY - gameAreaRect.top - 25;
+                
+                characterPos.x = Math.max(0, Math.min(newX, gameAreaRect.width - 50));
+                characterPos.y = Math.max(0, Math.min(newY, gameAreaRect.height - 50));
+                
+                character.style.left = characterPos.x + 'px';
+                character.style.top = characterPos.y + 'px';
+            }
+        });
+        
+        gameArea.addEventListener('touchend', () => {
+            character.dataset.touched = 'false';
+        });
+        
+        // Load senior photo based on URL parameter
+        function loadSeniorPhoto() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const seniorId = urlParams.get('id');
+    
+    if (seniorId) {
+        // Hide all senior cards first
+        const allSeniorCards = document.querySelectorAll('.senior-card');
+        allSeniorCards.forEach(card => {
+            card.style.display = 'none';
+        });
+        
+        // Find the specific senior's photo element
+        const photoElementId = `senior-${seniorId.toLowerCase()}-photo`;
+        const photoElement = document.getElementById(photoElementId);
+        
+        if (photoElement) {
+            // Show only this senior's card
+            const seniorCard = photoElement.closest('.senior-card');
+            if (seniorCard) {
+                seniorCard.style.display = 'flex';
+                seniorCard.style.transform = 'scale(1.05)';
+                seniorCard.style.boxShadow = '0 15px 30px rgba(106, 17, 203, 0.3)';
+                
+                // Make this card take full width
+                seniorCard.style.gridColumn = '1 / -1';
+                seniorCard.style.maxWidth = '300px';
+                seniorCard.style.margin = '0 auto';
+            }
+        }
+    }
+}
+
+// Call this function when the page loads in case the user has the ID in URL
+window.addEventListener('load', () => {
+    // Check if invitation should be shown directly (for debugging or direct links)
+    const urlParams = new URLSearchParams(window.location.search);
+    const showInvitation = urlParams.get('showInvitation');
+    
+    if (showInvitation === 'true') {
+        gameContainer.style.display = 'none';
+        invitationContainer.style.display = 'block';
+        loadSeniorPhoto();
+    }
+});
+</script>
+</body>
+</html>
