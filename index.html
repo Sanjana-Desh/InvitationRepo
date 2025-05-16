@@ -9,6 +9,14 @@
     
 </head>
 <body>
+    <script>
+        window.onload = function() {
+          // Check if the device is mobile
+          if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            document.body.innerHTML = "<h2>This page is only accessible on laptops/desktops.</h2>";
+          }
+        };
+      </script>
     <div class="container">
         <!-- Game Container -->
         <div class="game-container" id="gameContainer">
