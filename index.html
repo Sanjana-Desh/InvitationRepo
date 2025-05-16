@@ -6,14 +6,25 @@
     <title>Senior Farewell Celebration - Hard Challenge</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .mobile-message {
+          padding: 20px;
+          margin: 50px;
+          font-size: 20px;
+          text-align: center;
+          line-height: 1.5;
+          background-color: #f8f8f8;
+          border: 2px solid #ccc;
+          border-radius: 10px;
+        }
+      </style>
     
 </head>
 <body>
     <script>
         window.onload = function() {
-          // Check if the device is mobile
           if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            document.body.innerHTML = "<h2>This page is only accessible on laptops/desktops.</h2>";
+            document.body.innerHTML = '<div class="mobile-message">This page is only accessible on laptops/desktops.</div>';
           }
         };
       </script>
