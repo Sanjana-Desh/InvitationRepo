@@ -22,15 +22,19 @@
 </head>
 <body>
     <script>
-        window.onload = function() {
+        window.onload = function () {
           const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-          const isSmallScreen = window.innerWidth < 768;
+          const isTinyScreen = window.innerWidth < 768;
       
-          if (isMobile || isSmallScreen) {
-            document.body.innerHTML = '<div style="padding: 30px; font-size: 18px; text-align: center;">This page is only accessible on laptops/desktops.</div>';
+          if (isMobile || isTinyScreen) {
+            document.body.innerHTML = `
+              <div style="padding: 30px; font-size: 18px; text-align: center;">
+                🚫 This page is not supported on mobile or tablets. Please open it on a laptop or desktop computer.
+              </div>`;
           }
         };
       </script>
+      
       
     <div class="container">
         <!-- Game Container -->
